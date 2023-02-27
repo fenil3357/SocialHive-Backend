@@ -1,1 +1,1 @@
-<h2>Twitter Clone Using NodeJS</h2>
+<h2>Social Hive Backend Using NodeJS</h2>
