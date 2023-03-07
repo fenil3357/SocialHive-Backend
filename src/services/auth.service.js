@@ -12,8 +12,6 @@ const sendCustomEmailService = require("../helper/mailHelper");
 exports.signUpService = (req, res) => {
   const body = req.body;
 
-  console.log(body);
-
   // not all parameters provided
   if (body.hasOwnProperty('UserName') == false || body.hasOwnProperty('EmailId') == false || body.hasOwnProperty('FirstName') == false || body.hasOwnProperty('LastName') == false || body.hasOwnProperty('password') == false) {
     res.json({
@@ -50,7 +48,7 @@ exports.signUpService = (req, res) => {
   authModel.getUserByEmailModel(EmailId, (err, user) => {
     if (err) {
       res.json({
-        Error: err,
+        Error: "Something went wrong, Please try again",
         ERR_CODE: "DB_ERROR",
         status: false,
       });
@@ -69,7 +67,7 @@ exports.signUpService = (req, res) => {
         authModel.getUserByUserNameModel(UserName, (err, user) => {
           if (err) {
             res.json({
-              Error: err,
+              Error: "Something went wrong, Please try again",
               ERR_CODE: "DB_ERROR",
               status: false,
             });
@@ -101,7 +99,7 @@ exports.signUpService = (req, res) => {
               emailSender(verificationMailOption, (mail_error, result) => {
                 if (mail_error) {
                   res.json({
-                    Error: mail_error,
+                    Error: "Please provide a valid email adrress",
                     ERR_CODE: "MAIL_ERR",
                     status: false
                   })
@@ -111,7 +109,7 @@ exports.signUpService = (req, res) => {
                   authModel.signUpModel(body, (err, result) => {
                     if (err) {
                       res.json({
-                        Error: err,
+                        Error: "Something went wrong, Please try again",
                         ERR_CODE: "DB_ERROR",
                         status: false,
                       });
